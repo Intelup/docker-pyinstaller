@@ -7,7 +7,7 @@ platform:
   arch: amd64
 
 steps:
-  - name: python3
+  - name: python3.7.5
     image: plugins/docker
     settings:
       username:
@@ -17,12 +17,27 @@ steps:
       repo: intelup/pyinstaller-windows
       dockerfile: Dockerfile-py3-win64
       tags:
-        - python3
+        - python3.7.5
+
+  - name: python3.7.5-32bit
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: intelup/pyinstaller-windows
+      dockerfile: Dockerfile-py3-win32
+      tags:
+        - python3.7.5-32bit
 
   - name: teams
     image: jdamata/drone-teams
     settings:
       webhook: https://intelupcombr.webhook.office.com/webhookb2/393972ff-a364-40cf-84ff-5a3f6fe4f2c1@04015cce-82a0-40e8-98ef-89f3c203f319/IncomingWebhook/80cbbfd4359b4bfc8934d2274f5655e8/233aff32-62be-43b7-98df-3b68ba0c7b7a
+    depends_on:
+      - python3.7.5
+      - python3.7.5-32bit
 
 trigger:
   branch:
