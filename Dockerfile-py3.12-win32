@@ -10,7 +10,7 @@ ARG PYINSTALLER_VERSION=6.10.0
 RUN set -x \
   && dpkg --add-architecture i386 \
   && apt-get update -qy \
-  && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget unzip \
+  && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget unzip cabextract \
   && wget -nv https://dl.winehq.org/wine-builds/winehq.key \
   && apt-key add winehq.key \
   && add-apt-repository 'https://dl.winehq.org/wine-builds/ubuntu/' \
@@ -25,6 +25,9 @@ RUN set -x \
 ENV WINEARCH win32
 ENV WINEDEBUG fixme-all
 ENV WINEPREFIX /wine
+
+# Set Windows version to Windows 10 using winetricks
+RUN winetricks win10
 
 # PYPI repository location
 ENV PYPI_URL=https://pypi.python.org/

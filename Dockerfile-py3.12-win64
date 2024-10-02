@@ -10,7 +10,7 @@ ARG PYINSTALLER_VERSION=6.10.0
 RUN set -x \
   && dpkg --add-architecture i386 \
   && apt-get update -qy \
-  && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget unzip \
+  && apt-get install --no-install-recommends -qfy apt-transport-https software-properties-common wget unzip cabextract \
   && wget -nv https://dl.winehq.org/wine-builds/winehq.key \
   && apt-key add winehq.key \
   && add-apt-repository 'https://dl.winehq.org/wine-builds/ubuntu/' \
@@ -26,6 +26,9 @@ ENV WINEARCH win64
 ENV WINEDEBUG fixme-all
 ENV WINEPREFIX /wine
 
+# Set Wine to emulate Windows 10
+RUN winetricks win10
+
 # PYPI repository location
 ENV PYPI_URL=https://pypi.python.org/
 # PYPI index location
@@ -33,7 +36,6 @@ ENV PYPI_INDEX_URL=https://pypi.python.org/simple
 
 # Install Python in wine using the embeddable package (since the MSI files are no longer available for Python 3.12)
 RUN set -x \
-  && winetricks win7 \
   && wget -nv "https://www.python.org/ftp/python/$PYTHON_VERSION/python-$PYTHON_VERSION-embed-amd64.zip" -O python-embed.zip \
   && mkdir -p /wine/drive_c/Python312 \
   && unzip python-embed.zip -d /wine/drive_c/Python312 \
