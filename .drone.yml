@@ -55,29 +55,29 @@ steps:
       tags:
         - python3.8.5-32bit
 
-    - name: python3.12.6
-      image: plugins/docker
-      settings:
-        username:
-          from_secret: docker_username
-        password:
-          from_secret: docker_password
-        repo: intelup/pyinstaller-windows
-        dockerfile: Dockerfile-py3.12-win64
-        tags:
-          - python3.12.6
+  - name: python3.12.6
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: intelup/pyinstaller-windows
+      dockerfile: Dockerfile-py3.12-win64
+      tags:
+        - python3.12.6
 
-    - name: python3.12.6-32bit
-      image: plugins/docker
-      settings:
-        username:
-          from_secret: docker_username
-        password:
-          from_secret: docker_password
-        repo: intelup/pyinstaller-windows
-        dockerfile: Dockerfile-py3.12-win32
-        tags:
-          - python3.12.6-32bit
+  - name: python3.12.6-32bit
+    image: plugins/docker
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      repo: intelup/pyinstaller-windows
+      dockerfile: Dockerfile-py3.12-win32
+      tags:
+        - python3.12.6-32bit
 
   - name: teams
     image: jdamata/drone-teams
