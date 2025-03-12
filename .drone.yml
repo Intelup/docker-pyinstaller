@@ -76,6 +76,7 @@ steps:
       - python3.7.5-32bit
       - python3.8.5
       - python3.8.5-32bit
+      - python3.12.9
 
 trigger:
   branch:
